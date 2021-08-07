@@ -15,7 +15,7 @@ type config struct {
 	GithubAccessKey string
 }
 
-// LoadConfig loads and stores the environment variables in the config.Config object.
+// LoadConfig holds the environment variables in the config.Config variable
 func LoadConfig() {
 	readEnv()
 	Config = &config{
@@ -25,8 +25,7 @@ func LoadConfig() {
 }
 
 func readEnv() {
-	// Read the application environment variable or set it to "development",
-	// if empty.
+	// Read the application environment variable or set if empty
 	currentEnvironment, ok := os.LookupEnv("APPENV")
 	if !ok {
 		if err := os.Setenv("APPENV", "development"); err != nil {
@@ -34,9 +33,7 @@ func readEnv() {
 		}
 		currentEnvironment = "development"
 	}
-	// As the execution root during test isn't the same as the application,
-	// provide an absolute path to load the environment variables.
-
+	// Absolute path for the .env file, as the execution root changes during tests.
 	if err := godotenv.Load(os.ExpandEnv("$GOPATH/src/github.com/harrychopra/go-github-microservice/src/api/.env." + currentEnvironment)); err != nil {
 		panic(err)
 	}
