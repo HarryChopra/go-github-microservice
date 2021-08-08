@@ -1,5 +1,6 @@
 package github
 
+// ErrorResponse describes the error response from the Github API
 type ErrorResponse struct {
 	Message          string  `json:"message"`
 	Errors           []error `json:"errors"`
